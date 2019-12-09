@@ -49,7 +49,7 @@ public class ChatClient extends Application {
 
         // Setup connection channel to server
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
-                .usePlaintext(true).build();
+                .usePlaintext().build();
 
         /* Stub uses the channel to send RPCs to the service.
             Can also be blocking stub for synchronous (unary) services.
