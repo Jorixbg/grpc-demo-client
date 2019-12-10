@@ -5,9 +5,20 @@ option java_multiple_files = true;
 import "google/protobuf/timestamp.proto";
 package com.grpc.chat;
 
+enum SupportedAttachments{
+    IMG = 0;
+    PNG = 1;
+    ZIP = 3;
+}
 message ChatMessage {
     string from = 1;
     string message = 2;
+    int32 size = 3;
+    bytes image = 4;
+    repeated string receivers = 5;
+    map<string, string> metadata = 6;
+    SupportedAttachments attachments = 7;
+
 }
 
 message ChatMessageFromServer {
