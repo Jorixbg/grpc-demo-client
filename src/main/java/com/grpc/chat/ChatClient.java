@@ -27,25 +27,7 @@ public class ChatClient extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        messagesView.setItems(messages);
-
-        send.setText("Send");
-
-        BorderPane pane = new BorderPane();
-        pane.setLeft(name);
-        pane.setCenter(message);
-        pane.setRight(send);
-
-        BorderPane root = new BorderPane();
-        root.setCenter(messagesView);
-        root.setBottom(pane);
-
-        primaryStage.setTitle("gRPC Chat");
-        primaryStage.setScene(new Scene(root, 480, 320));
-
-        primaryStage.show();
-
-        // --- INTERESTING STUFF --- //
+        init(primaryStage); // init JavaFX
 
         // Setup connection channel to server
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
@@ -94,5 +76,25 @@ public class ChatClient extends Application {
             message.setText("");
         });
         primaryStage.setOnCloseRequest(e -> {chatClient.onCompleted(); channel.shutdown(); });
+    }
+
+    private void init(Stage primaryStage) {
+        messagesView.setItems(messages);
+
+        send.setText("Send");
+
+        BorderPane pane = new BorderPane();
+        pane.setLeft(name);
+        pane.setCenter(message);
+        pane.setRight(send);
+
+        BorderPane root = new BorderPane();
+        root.setCenter(messagesView);
+        root.setBottom(pane);
+
+        primaryStage.setTitle("gRPC Chat");
+        primaryStage.setScene(new Scene(root, 480, 320));
+
+        primaryStage.show();
     }
 }
